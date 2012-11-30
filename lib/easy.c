@@ -453,7 +453,8 @@ CURLcode curl_easy_perform(CURL *easy)
     if(mcode == CURLM_OK)
       mcode = curl_multi_perform(multi, &still_running);
 
-    if(!still_running) {
+    /* only read 'still_running' if curl_multi_perform() return OK */
+    if((mcode == CURLM_OK) && !still_running) {
       msg = curl_multi_info_read(multi, &rc);
       if(msg) {
         code = msg->data.result;
