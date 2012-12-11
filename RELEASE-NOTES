@@ -1,0 +1,31 @@
+Curl and libcurl 7.28.2
+
+ Public curl releases:         131
+ Command line options:         152
+ curl_easy_setopt() options:   199
+ Public functions in libcurl:  58
+ Known libcurl bindings:       39
+ Contributors:                 993
+
+This release includes the following changes:
+
+ o 
+
+This release includes the following bugfixes:
+
+ o nss: prevent NSS from crashing on client auth hook failure
+
+This release includes the following known bugs:
+
+ o see docs/KNOWN_BUGS (http://curl.haxx.se/docs/knownbugs.html)
+
+This release would not have looked like this without help, code, reports and
+advice from friends like these:
+
+ 
+
+        Thanks! (and sorry if I forgot to mention someone)
+
+References to bug reports and discussions on issues:
+
+ 
