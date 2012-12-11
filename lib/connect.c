@@ -79,6 +79,8 @@
 #include "inet_pton.h"
 #include "sslgen.h" /* for Curl_ssl_check_cxn() */
 #include "progress.h"
+#include "conncache.h"
+#include "multihandle.h"
 #include "warnless.h"
 
 /* The last #include file should be: */
@@ -1118,6 +1120,21 @@ CURLcode Curl_connecthost(struct connectdata *conn,  /* context */
   return CURLE_OK;
 }
 
+struct connfind {
+  struct connectdata *tofind;
+  bool found;
+};
+
+static int conn_is_conn(struct connectdata *conn, void *param)
+{
+  struct connfind *f = (struct connfind *)param;
+  if(conn == f->tofind) {
+    f->found = TRUE;
+    return 1;
+  }
+  return 0;
+}
+
 /*
  * Used to extract socket and connectdata struct for the most recent
  * transfer on the given SessionHandle.
@@ -1131,8 +1148,21 @@ curl_socket_t Curl_getconnectinfo(struct SessionHandle *data,
 
   DEBUGASSERT(data);
 
-  if(data->state.lastconnect) {
+  /* this only works for an easy handle that has been used for
+     curl_easy_perform()! */
+  if(data->state.lastconnect && data->multi_easy) {
     struct connectdata *c = data->state.lastconnect;
+    struct connfind find;
+    find.tofind = data->state.lastconnect;
+    find.found = FALSE;
+
+    Curl_conncache_foreach(data->multi_easy->conn_cache, &find, conn_is_conn);
+
+    if(!find.found) {
+      data->state.lastconnect = NULL;
+      return CURL_SOCKET_BAD;
+    }
+
     if(connp)
       /* only store this if the caller cares for it */
       *connp = c;
