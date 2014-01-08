@@ -52,7 +52,7 @@
 				AdditionalIncludeDirectories=".,..\..\..\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;BUILDING_LIBCURL;CURL_STATICLIB;CURL_DISABLE_LDAP"
 				StringPooling="true"
-				RuntimeLibrary="1"
+				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				PrecompiledHeaderFile=".\Release/libcurl.pch"
 				AssemblerListingLocation=".\Release/"
