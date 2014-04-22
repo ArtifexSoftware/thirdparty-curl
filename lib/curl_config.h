@@ -62,7 +62,7 @@
 #define CURL_DISABLE_TLS_SRP
 
 /* to disable verbose strings */
-#define CURL_DISABLE_VERBOSE_STRINGS
+/* #undef CURL_DISABLE_VERBOSE_STRINGS */
 
 /* Definition to make a library symbol externally visible. */
 #define CURL_EXTERN_SYMBOL __attribute__ ((__visibility__ ("default")))
