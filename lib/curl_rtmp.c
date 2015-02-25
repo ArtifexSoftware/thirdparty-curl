@@ -39,7 +39,7 @@
 /* The last #include file should be: */
 #include "memdebug.h"
 
-#ifdef _WIN32
+#if defined(_WIN32) || defined(_WIN64)
 #define setsockopt(a,b,c,d,e) (setsockopt)(a,b,c,(const char *)d,(int)e)
 #define SET_RCVTIMEO(tv,s)   int tv = s*1000
 #else
