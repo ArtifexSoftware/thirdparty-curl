@@ -9,11 +9,11 @@ function(SETUP_EXECUTABLE TEST_NAME)    # ARGN are the files in the test
     ${CURL_BINARY_DIR}/lib      # To be able to reach "curl_config.h"
     ${CURL_BINARY_DIR}/include  # To be able to reach "curl/curlbuild.h"
     )
-  if(CURL_USE_ARES)
+  if(USE_ARES)
     include_directories(${CARES_INCLUDE_DIR})
   endif()
-  # resolve test needs this
-  setup_curl_dependencies(${TEST_NAME})
+
+  target_link_libraries(${TEST_NAME} ${CURL_LIBS})
 
   # Test servers simply are standalone programs that do not use libcurl
   # library.  For convinience and to ease portability of these servers,
@@ -32,14 +32,6 @@ function(SETUP_EXECUTABLE TEST_NAME)    # ARGN are the files in the test
   # automatically as for modules and shared libraries
   set_target_properties(${TEST_NAME} PROPERTIES
     DEBUG_POSTFIX "${CMAKE_DEBUG_POSTFIX}")
-
-  if(MSVC)
-    if(NOT BUILD_RELEASE_DEBUG_DIRS)
-      # Ugly workaround to remove the "/debug" or "/release" in each output
-      set_target_properties(${TEST_NAME} PROPERTIES PREFIX "../")
-      set_target_properties(${TEST_NAME} PROPERTIES IMPORT_PREFIX "../")
-    endif()
-  endif()
 
 endfunction()
 

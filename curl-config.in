@@ -10,7 +10,7 @@
 #
 # This software is licensed as described in the file COPYING, which
 # you should have received as part of this distribution. The terms
-# are also available at http://curl.haxx.se/docs/copyright.html.
+# are also available at https://curl.haxx.se/docs/copyright.html.
 #
 # You may opt to use, copy, modify, merge, publish, distribute and/or sell
 # copies of the Software, and permit persons to whom the Software is
@@ -71,7 +71,7 @@ while test $# -gt 0; do
         ;;
 
     --ca)
-        echo "@CURL_CA_BUNDLE@"
+        echo @CURL_CA_BUNDLE@
         ;;
 
     --cc)
@@ -155,12 +155,12 @@ while test $# -gt 0; do
         ;;
 
     --static-libs)
-	if test "X@ENABLE_STATIC@" != "Xno" ; then
-		echo @libdir@/libcurl.@libext@ @LDFLAGS@ @LIBCURL_LIBS@
-	else
-		echo "curl was built with static libraries disabled" >&2
-		exit 1
-	fi
+        if test "X@ENABLE_STATIC@" != "Xno" ; then
+          echo @libdir@/libcurl.@libext@ @LDFLAGS@ @LIBCURL_LIBS@
+        else
+          echo "curl was built with static libraries disabled" >&2
+          exit 1
+        fi
         ;;
 
     --configure)

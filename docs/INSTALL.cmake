@@ -24,7 +24,6 @@ Current flaws in the curl CMake build
    Missing features in the cmake build:
 
    - Builds libcurl without large file support
-   - It doesn't build src/tool_hugehelp.c which creates the --manual output
    - Can't select which SSL library to build with, only OpenSSL
    - Doesn't build with SCP and SFTP support (libssh2)
    - Doesn't allow different resolver backends (no c-ares build support)
@@ -32,7 +31,6 @@ Current flaws in the curl CMake build
    - Doesn't allow build curl and libcurl debug enabled
    - Doesn't allow a custom CA bundle path
    - Doesn't allow you to disable specific protocols from the build
-   - Doesn't properly enable IPv6 support by default
    - Doesn't find or use krb4 or GSS
    - Rebuilds test files too eagerly, but still can't run the tests
 
@@ -71,7 +69,7 @@ Command Line CMake
 
     $ make install
 
-    (The teste suit does not work with the cmake build)
+    (The test suite does not work with the cmake build)
 
 ccmake
 =========
