@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories=".,..\..\..\include"
+				AdditionalIncludeDirectories=".,..\..\..\lib,..\..\..\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;BUILDING_LIBCURL;CURL_STATICLIB;CURL_DISABLE_LDAP"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
@@ -164,7 +164,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".,..\..\..\include"
+				AdditionalIncludeDirectories=".,..\..\..\lib,..\..\..\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;BUILDING_LIBCURL;CURL_STATICLIB;CURL_DISABLE_LDAP"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -286,7 +286,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".,..\..\..\include"
+				AdditionalIncludeDirectories=".,..\..\..\lib,..\..\..\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;BUILDING_LIBCURL;CURL_STATICLIB;CURL_DISABLE_LDAP"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -403,7 +403,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\lib\axtls.c"
+				RelativePath="..\..\..\lib\vtls\axtls.c"
 				>
 			</File>
 			<File
@@ -411,7 +411,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\lib\bundles.c"
+				RelativePath="..\..\..\lib\vauth\cleartext.c"
 				>
 			</File>
 			<File
@@ -431,11 +431,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\lib\vauth\cram.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\lib\curl_addrinfo.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\lib\curl_darwinssl.c"
+				RelativePath="..\..\..\lib\curl_des.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\lib\curl_endian.c"
 				>
 			</File>
 			<File
@@ -459,23 +467,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\lib\curl_ntlm.c"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\lib\curl_ntlm_core.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\lib\curl_ntlm_msgs.c"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\lib\curl_ntlm_wb.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\lib\curl_rand.c"
 				>
 			</File>
 			<File
@@ -487,10 +483,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\lib\curl_schannel.c"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\lib\curl_sspi.c"
 				>
 			</File>
@@ -499,11 +491,19 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\lib\cyassl.c"
+				RelativePath="..\..\..\lib\dict.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\lib\dict.c"
+				RelativePath="..\..\..\lib\vauth\digest.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\lib\vauth\digest_sspi.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\lib\dotdot.c"
 				>
 			</File>
 			<File
@@ -544,10 +544,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\lib\gopher.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\lib\gtls.c"
 				>
 			</File>
 			<File
@@ -599,7 +595,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\lib\http_negotiate_sspi.c"
+				RelativePath="..\..\..\lib\http_ntlm.c"
 				>
 			</File>
 			<File
@@ -624,10 +620,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\lib\inet_pton.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\lib\krb4.c"
 				>
 			</File>
 			<File
@@ -675,7 +667,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\lib\nss.c"
+				RelativePath="..\..\..\lib\vauth\ntlm.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\lib\vauth\ntlm_sspi.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\lib\vauth\oauth2.c"
 				>
 			</File>
 			<File
@@ -695,27 +695,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\lib\polarssl.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\lib\polarssl_threadlock.c"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\lib\pop3.c"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\lib\progress.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\lib\qssl.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\lib\rawstr.c"
 				>
 			</File>
 			<File
@@ -740,6 +724,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\lib\slist.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\lib\smb.c"
 				>
 			</File>
 			<File
@@ -771,19 +759,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\lib\sslgen.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\lib\ssluse.c"
+				RelativePath="..\..\..\lib\strcase.c"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\lib\strdup.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\lib\strequal.c"
 				>
 			</File>
 			<File
@@ -796,6 +776,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\lib\strtoofft.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\lib\system_win32.c"
 				>
 			</File>
 			<File
@@ -819,7 +803,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\lib\vauth\vauth.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\lib\version.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\lib\vtls\vtls.c"
 				>
 			</File>
 			<File
@@ -844,14 +836,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\lib\asyn.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\lib\axtls.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\lib\bundles.h"
 				>
 			</File>
 			<File
@@ -883,7 +867,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\lib\curl_darwinssl.h"
+				RelativePath="..\..\..\lib\curl_des.h"
 				>
 			</File>
 			<File
@@ -927,23 +911,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\lib\curl_ntlm.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\lib\curl_ntlm_core.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\lib\curl_ntlm_msgs.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\lib\curl_ntlm_wb.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\lib\curl_rand.h"
 				>
 			</File>
 			<File
@@ -952,10 +924,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\lib\curl_sasl.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\lib\curl_schannel.h"
 				>
 			</File>
 			<File
@@ -976,10 +944,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\lib\curlx.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\lib\cyassl.h"
 				>
 			</File>
 			<File
@@ -1020,10 +984,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\lib\gopher.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\lib\gtls.h"
 				>
 			</File>
 			<File
@@ -1075,10 +1035,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\lib\krb4.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\lib\llist.h"
 				>
 			</File>
@@ -1107,10 +1063,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\lib\nssg.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\lib\parsedate.h"
 				>
 			</File>
@@ -1123,27 +1075,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\lib\polarssl.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\lib\polarssl_threadlock.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\lib\pop3.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\lib\progress.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\lib\qssl.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\lib\rawstr.h"
 				>
 			</File>
 			<File
@@ -1195,19 +1131,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\lib\sslgen.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\lib\ssluse.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\lib\strdup.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\lib\strequal.h"
 				>
 			</File>
 			<File
