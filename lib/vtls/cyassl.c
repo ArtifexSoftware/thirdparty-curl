@@ -157,6 +157,7 @@ cyassl_connect_step1(struct connectdata *conn,
   struct ssl_connect_data* connssl = &conn->ssl[sockindex];
   SSL_METHOD* req_method = NULL;
   curl_socket_t sockfd = conn->sock[sockindex];
+  const char * const ssl_crlfile = SSL_SET_OPTION(CRLfile);
 #ifdef HAVE_SNI
   bool sni = FALSE;
 #define use_sni(x)  sni = (x)
@@ -403,6 +404,14 @@ cyassl_connect_step1(struct connectdata *conn,
     return CURLE_OUT_OF_MEMORY;
   }
 
+  if(ssl_crlfile) {
+    if(wolfSSL_LoadCRL(BACKEND->handle, ssl_crlfile, SSL_FILETYPE_PEM, 0) !=
+       SSL_SUCCESS) {
+      failf(data, "Error reading CRL file %s", ssl_crlfile);
+      return CURLE_SSL_CRL_BADFILE;
+    }
+  }
+
 #ifdef HAVE_ALPN
   if(conn->bits.tls_enable_alpn) {
     char protocols[128];
@@ -541,6 +550,10 @@ cyassl_connect_step2(struct connectdata *conn,
       }
     }
 #endif
+    else if(-362 == detail) { /* CRL_MISSING */
+      failf(data, "CRL file missing!");
+      return CURLE_SSL_CRL_BADFILE;
+    }
     else {
       failf(data, "SSL_connect failed with error %d: %s", detail,
           ERR_error_string(detail, error_buffer));
