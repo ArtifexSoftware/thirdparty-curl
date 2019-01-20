@@ -920,6 +920,10 @@ typedef enum {
 #define CURLPROTO_SMBS   (1<<27)
 #define CURLPROTO_ALL    (~0) /* enable everything */
 
+/* bitmask defines for CURLOPT_H3 */
+#define CURLH3_DIRECT (1<<0) /* go QUIC + HTTP/3 directly to the given host +
+                                port */
+
 /* long may be 32 or 64 bits, but we should never depend on anything else
    but 32 */
 #define CURLOPTTYPE_LONG          0
@@ -1921,6 +1925,9 @@ typedef enum {
   /* maximum age of a connection to consider it for reuse (in seconds) */
   CINIT(MAXAGE_CONN, LONG, 288),
 
+  /* Bitmask to control HTTP/3 behavior. See CURLH3_* */
+  CINIT(H3, LONG, 999),
+
   CURLOPT_LASTENTRY /* the last unused */
 } CURLoption;
 
@@ -2784,6 +2791,7 @@ typedef struct {
 #define CURL_VERSION_MULTI_SSL    (1<<22) /* Multiple SSL backends available */
 #define CURL_VERSION_BROTLI       (1<<23) /* Brotli features are present. */
 #define CURL_VERSION_ALTSVC       (1<<24) /* Alt-Svc handling built-in */
+#define CURL_VERSION_HTTP3        (1<<25) /* HTTP3 support built-in */
 
  /*
  * NAME curl_version_info()
