@@ -3764,6 +3764,8 @@ AC_CHECK_FUNCS([fnmatch \
   getpwuid_r \
   getrlimit \
   gettimeofday \
+  getpeername \
+  getsockname \
   if_nametoindex \
   mach_absolute_time \
   pipe \
