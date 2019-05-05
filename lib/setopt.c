@@ -2147,8 +2147,8 @@ static CURLcode vsetopt(struct Curl_easy *data, CURLoption option,
     data->set.proxy_ssl.no_revoke = !!(arg & CURLSSLOPT_NO_REVOKE);
     break;
 #endif
+#endif /* USE_SSL */
 
-#endif
   case CURLOPT_IPRESOLVE:
     arg = va_arg(param, long);
     if((arg < CURL_IPRESOLVE_WHATEVER) || (arg > CURL_IPRESOLVE_V6))
