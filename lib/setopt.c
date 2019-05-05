@@ -2523,6 +2523,7 @@ static CURLcode vsetopt(struct Curl_easy *data, CURLoption option,
   case CURLOPT_FNMATCH_FUNCTION:
     data->set.fnmatch = va_arg(param, curl_fnmatch_callback);
     break;
+#ifndef CURL_DISABLE_FTP
   case CURLOPT_CHUNK_DATA:
     data->wildcard.customptr = va_arg(param, void *);
     break;
