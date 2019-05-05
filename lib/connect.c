@@ -679,17 +679,21 @@ UNITTEST bool getaddressinfo(struct sockaddr *sa, char *addr,
    connection */
 void Curl_updateconninfo(struct connectdata *conn, curl_socket_t sockfd)
 {
-  curl_socklen_t len;
-  struct Curl_sockaddr_storage ssrem;
-  struct Curl_sockaddr_storage ssloc;
-  struct Curl_easy *data = conn->data;
-
   if(conn->socktype == SOCK_DGRAM)
     /* there's no connection! */
     return;
 
   if(!conn->bits.reuse && !conn->bits.tcp_fastopen) {
+    struct Curl_easy *data = conn->data;
     char buffer[STRERROR_LEN];
+    struct Curl_sockaddr_storage ssrem;
+    struct Curl_sockaddr_storage ssloc;
+#if defined(HAVE_GETPEERNAME) || defined(HAVE_GETSOCKNAME)
+    curl_socklen_t len;
+#else
+    (void)sockfd;
+#endif
+#ifdef HAVE_GETPEERNAME
     len = sizeof(struct Curl_sockaddr_storage);
     if(getpeername(sockfd, (struct sockaddr*) &ssrem, &len)) {
       int error = SOCKERRNO;
@@ -697,7 +701,8 @@ void Curl_updateconninfo(struct connectdata *conn, curl_socket_t sockfd)
             error, Curl_strerror(error, buffer, sizeof(buffer)));
       return;
     }
-
+#endif
+#ifdef HAVE_GETSOCKNAME
     len = sizeof(struct Curl_sockaddr_storage);
     memset(&ssloc, 0, sizeof(ssloc));
     if(getsockname(sockfd, (struct sockaddr*) &ssloc, &len)) {
@@ -706,7 +711,7 @@ void Curl_updateconninfo(struct connectdata *conn, curl_socket_t sockfd)
             error, Curl_strerror(error, buffer, sizeof(buffer)));
       return;
     }
-
+#endif
     if(!getaddressinfo((struct sockaddr*)&ssrem,
                        conn->primary_ip, &conn->primary_port)) {
       failf(data, "ssrem inet_ntop() failed with errno %d: %s",
@@ -721,7 +726,6 @@ void Curl_updateconninfo(struct connectdata *conn, curl_socket_t sockfd)
             errno, Curl_strerror(errno, buffer, sizeof(buffer)));
       return;
     }
-
   }
 
   /* persist connection info in session handle */

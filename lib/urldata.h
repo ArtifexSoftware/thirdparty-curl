@@ -431,6 +431,7 @@ struct ConnectBits {
                            though it will be discarded. When the whole send
                            operation is done, we must call the data rewind
                            callback. */
+#ifndef CURL_DISABLE_FTP
   bit ftp_use_epsv:1;  /* As set with CURLOPT_FTP_USE_EPSV, but if we find out
                           EPSV doesn't work we disable it for the forthcoming
                           requests */
@@ -438,6 +439,7 @@ struct ConnectBits {
                           EPRT doesn't work we disable it for the forthcoming
                           requests */
   bit ftp_use_data_ssl:1; /* Enabled SSL for the data connection */
+#endif
   bit netrc:1;         /* name+password provided by netrc */
   bit userpwd_in_url:1; /* name+password found in url */
   bit stream_was_rewound:1; /* The stream was rewound after a request read
@@ -1605,18 +1607,20 @@ struct UserDefined {
   long ipver; /* the CURL_IPRESOLVE_* defines in the public header file
                  0 - whatever, 1 - v2, 2 - v6 */
   curl_off_t max_filesize; /* Maximum file size to download */
+#ifndef CURL_DISABLE_FTP
   curl_ftpfile ftp_filemethod; /* how to get to a file when FTP is used  */
   int ftp_create_missing_dirs; /* 1 - create directories that don't exist
                                   2 - the same but also allow MKD to fail once
                                */
+  curl_ftpauth ftpsslauth; /* what AUTH XXX to be attempted */
+  curl_ftpccc ftp_ccc;   /* FTP CCC options */
+#endif
   curl_sshkeycallback ssh_keyfunc; /* key matching callback */
   void *ssh_keyfunc_userp;         /* custom pointer to callback */
   enum CURL_NETRC_OPTION
        use_netrc;        /* defined in include/curl.h */
   curl_usessl use_ssl;   /* if AUTH TLS is to be attempted etc, for FTP or
                             IMAP or POP3 or others! */
-  curl_ftpauth ftpsslauth; /* what AUTH XXX to be attempted */
-  curl_ftpccc ftp_ccc;   /* FTP CCC options */
   long new_file_perms;    /* Permissions to use when creating remote files */
   long new_directory_perms; /* Permissions to use when creating remote dirs */
   long ssh_auth_types;   /* allowed SSH auth types */
@@ -1675,9 +1679,16 @@ struct UserDefined {
   bit get_filetime:1;     /* get the time and get of the remote file */
   bit tunnel_thru_httpproxy:1; /* use CONNECT through a HTTP proxy */
   bit prefer_ascii:1;     /* ASCII rather than binary */
+#ifndef CURL_DISABLE_FTP
   bit ftp_append:1;       /* append, not overwrite, on upload */
   bit ftp_list_only:1;    /* switch FTP command for listing directories */
   bit ftp_use_port:1;     /* use the FTP PORT command */
+  bit ftp_use_epsv:1;   /* if EPSV is to be attempted or not */
+  bit ftp_use_eprt:1;   /* if EPRT is to be attempted or not */
+  bit ftp_use_pret:1;   /* if PRET is to be used before PASV or not */
+  bit ftp_skip_ip:1;    /* skip the IP address the FTP server passes on to
+                            us */
+#endif
   bit hide_progress:1;    /* don't use the progress meter */
   bit http_fail_on_error:1;  /* fail on HTTP error codes >= 400 */
   bit http_keep_sending_on_error:1; /* for HTTP status codes >= 300 */
@@ -1695,15 +1706,10 @@ struct UserDefined {
   bit krb:1;            /* Kerberos connection requested */
   bit reuse_forbid:1;   /* forbidden to be reused, close after use */
   bit reuse_fresh:1;    /* do not re-use an existing connection  */
-  bit ftp_use_epsv:1;   /* if EPSV is to be attempted or not */
-  bit ftp_use_eprt:1;   /* if EPRT is to be attempted or not */
-  bit ftp_use_pret:1;   /* if PRET is to be used before PASV or not */
 
   bit no_signal:1;      /* do not use any signal/alarm handler */
   bit tcp_nodelay:1;    /* whether to enable TCP_NODELAY or not */
   bit ignorecl:1;       /* ignore content length */
-  bit ftp_skip_ip:1;    /* skip the IP address the FTP server passes on to
-                            us */
   bit connect_only:1;   /* make connection, let application use the socket */
   bit http_te_skip:1;   /* pass the raw body data to the user, even when
                             transfer-encoded (chunked, compressed) */
