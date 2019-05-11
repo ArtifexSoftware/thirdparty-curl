@@ -2104,8 +2104,6 @@ static CURLcode operate_do(struct GlobalConfig *global,
   CURLcode result = CURLE_OK;
   bool capath_from_env;
 
-  CURL *curltls = curl_easy_init();
-
   /*
   ** Beyond this point no return'ing from this function allowed.
   ** Jump to label 'quit_curl' in order to abandon this function
@@ -2131,6 +2129,7 @@ static CURLcode operate_do(struct GlobalConfig *global,
   if(!config->cacert &&
      !config->capath &&
      !config->insecure_ok) {
+    CURL *curltls = curl_easy_init();
     struct curl_tlssessioninfo *tls_backend_info = NULL;
 
     /* With the addition of CAINFO support for Schannel, this search could find
