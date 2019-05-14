@@ -826,7 +826,9 @@ static CURLcode operate_do(struct GlobalConfig *global,
 
         /* where to store */
         my_setopt(curl, CURLOPT_WRITEDATA, &outs);
+#ifndef CURL_DISABLE_RTSP
         my_setopt(curl, CURLOPT_INTERLEAVEDATA, &outs);
+#endif
         if(metalink || !config->use_metalink)
           /* what call to write */
           my_setopt(curl, CURLOPT_WRITEFUNCTION, tool_write_cb);
