@@ -41,7 +41,7 @@ LIB_VQUIC_CFILES = vquic/ngtcp2.c vquic/quiche.c
 
 LIB_VQUIC_HFILES = vquic/ngtcp2.h vquic/quiche.h
 
-LIB_VSSH_CFILES = vssh/libssh2.c vssh/libssh.c
+LIB_VSSH_CFILES = vssh/libssh2.c vssh/libssh.c vssh/wolfssh.c
 
 LIB_CFILES = file.c timeval.c base64.c hostip.c progress.c formdata.c   \
   cookie.c http.c sendf.c ftp.c url.c dict.c if2ip.c speedcheck.c       \
